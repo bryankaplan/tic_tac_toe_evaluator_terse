@@ -31,7 +31,7 @@ def w(b,s):
 
     This is a helper function for e. If I wasn't trying to reduce the
     character count, this function's name would begin with an
-    underscore.
+    underscore, and would be called _one_won.
 
     Board must be specified as an integer, the binary representation of
     which depicts the sequence of values, proceeding from the upper-left
@@ -66,6 +66,6 @@ def w(b,s):
     d=int((t*2**s**2-1)/(2*t-1))
     # u is a diagonal win shaped like "\". It is OEIS A244961.
     u=int((2**s**2-t)/(t-2))
-    # To determine if 1 won, we compare a bitwise And against each
-    # possible win to the win itself. Any matches means 1 has won.
+    # To determine if 1 won, we bitwise And the board with each possible
+    # win. If the win itself matches that value, then 1 has won.
     return any(b&w==w for w in r(h)+r(v)+[d,u])
