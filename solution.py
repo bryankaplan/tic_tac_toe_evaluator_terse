@@ -46,10 +46,24 @@ def w(b,s):
     The board must be a square, the length of which must be s.
 
     Every non-1 square must be 0.
+
+    Returns a boolean value signifying whether 1 won.
     """
-    h=lambda s,i:(2**s-1)<<(s*(i+1)-s) # horizontal win based on OEIS A090411
-    v=lambda s,i:int(2**(s**2+i)/(2**s-1)) # vertical win based on OEIS A033138
-    d=lambda i:int((2**i*2**i**2-1)/(2*2**i-1)) # slash win, OEIS A119408
-    u=lambda i:int((2**i**2-2**i)/(2**i-2)) # backslash win, OEIS A244961
-    r=lambda f,s:[f(s,i) for i in range(s)] # iteration helper
-    return any(b&w==w for w in r(h,s)+r(v,s)+[d(s),u(s)])
+    # h calculates a horizontal win. It's based on OEIS A090411. There
+    # are multiple horizontal wins possible per board: one per row. The
+    # i parameter represents which row will be used for this win.
+    h=lambda i:(2**s-1)<<(s*(i+1)-s)
+    # v calculates a vertical win. It's based on OEIS A033138. There
+    # are multiple vertical wins possible per board: one per column. The
+    # i parameter represents which column will be used for this win.
+    v=lambda i:int(2**(s**2+i)/(2**s-1))
+    # r is an iteration helper for h and v. It collects each row or
+    # column of possible wins, based on the board size s.
+    r=lambda f:[f(i) for i in range(s)] # iteration helper
+    # d is a diagonal win shaped like "/". It is OEIS A119408.
+    d=int((2**s*2**s**2-1)/(2*2**s-1))
+    # u is a diagonal win shaped like "\". It is OEIS A244961.
+    u=int((2**s**2-2**s)/(2**s-2))
+    # To determine if 1 won, we compare a bitwise And against each
+    # possible win to the win itself. Any matches means 1 has won.
+    return any(b&w==w for w in r(h)+r(v)+[d,u])
