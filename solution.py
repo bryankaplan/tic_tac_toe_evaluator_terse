@@ -15,7 +15,8 @@ def e(b):
     XOX
     O X
     OOX
-    represents a 3x3 board in which X won and O did not win.
+    is a 3x3 board in which X won and O did not win. It could be
+    represented as ('X','O','X','O',' ','X','O','O','X').
 
     Returns a two-tuple of (boolean X won, boolean O won)
     """
