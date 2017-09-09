@@ -63,9 +63,9 @@ def w(b,s):
     # column of possible wins, based on the board size s.
     r=lambda f:[f(i) for i in range(s)]
     # d is a diagonal win shaped like "/". It is OEIS A119408.
-    d=int((t*t**2-1)/(2*t-1))
+    d=int((t*2**s**2-1)/(2*t-1))
     # u is a diagonal win shaped like "\". It is OEIS A244961.
-    u=int((t**2-t)/(t-2))
+    u=int((2**s**2-t)/(t-2))
     # To determine if 1 won, we compare a bitwise And against each
     # possible win to the win itself. Any matches means 1 has won.
     return any(b&w==w for w in r(h)+r(v)+[d,u])
