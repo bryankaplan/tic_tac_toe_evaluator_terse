@@ -49,21 +49,23 @@ def w(b,s):
 
     Returns a boolean value signifying whether 1 won.
     """
+    # t is a value we'll use in each of the following calculations.
+    t=2**s
     # h calculates a horizontal win. It's based on OEIS A090411. There
     # are multiple horizontal wins possible per board: one per row. The
     # i parameter represents which row will be used for this win.
-    h=lambda i:(2**s-1)<<(s*(i+1)-s)
+    h=lambda i:(t-1)<<(s*(i+1)-s)
     # v calculates a vertical win. It's based on OEIS A033138. There
     # are multiple vertical wins possible per board: one per column. The
     # i parameter represents which column will be used for this win.
-    v=lambda i:int(2**(s**2+i)/(2**s-1))
+    v=lambda i:int(2**(s**2+i)/(t-1))
     # r is an iteration helper for h and v. It collects each row or
     # column of possible wins, based on the board size s.
-    r=lambda f:[f(i) for i in range(s)] # iteration helper
+    r=lambda f:[f(i) for i in range(s)]
     # d is a diagonal win shaped like "/". It is OEIS A119408.
-    d=int((2**s*2**s**2-1)/(2*2**s-1))
+    d=int((t*t**2-1)/(2*t-1))
     # u is a diagonal win shaped like "\". It is OEIS A244961.
-    u=int((2**s**2-2**s)/(2**s-2))
+    u=int((t**2-t)/(t-2))
     # To determine if 1 won, we compare a bitwise And against each
     # possible win to the win itself. Any matches means 1 has won.
     return any(b&w==w for w in r(h)+r(v)+[d,u])
