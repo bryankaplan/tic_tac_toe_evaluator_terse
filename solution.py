@@ -29,6 +29,10 @@ def w(b,s):
     """
     Given a tic tac toe board b of arbitrary size s, determine if 1 won.
 
+    This is a helper function for e. If I wasn't trying to reduce the
+    character count, this function's name would begin with an
+    underscore.
+
     Board must be specified as an integer, the binary representation of
     which depicts the sequence of values, proceeding from the upper-left
     corner to the upper-right corner, with proceeding rows following.
