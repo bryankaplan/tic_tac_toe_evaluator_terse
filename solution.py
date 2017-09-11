@@ -22,7 +22,7 @@ def e(b):
     """
     s=int(len(b)**.5) # importless square root for board size
     # Adapt the board for X or O with significant 1s and insignificant 0s.
-    a=lambda p:int(''.join(str(int(s==p)) for s in b),base=2)
+    a=lambda p:int(''.join(str(int(c==p)) for c in b),base=2)
     return (w(a('X'),s),w(a('O'),s))
 
 def w(b,s):
